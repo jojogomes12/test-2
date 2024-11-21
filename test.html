@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visitar meu site ngrok</title>
+    <style>
+        iframe {
+            width: 100%;
+            height: 100vh;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>Meu site ngrok</h1>
+
+    <!-- Iframe para carregar o site ngrok -->
+    <iframe id="ngrokFrame" src="" sandbox="allow-scripts allow-same-origin"></iframe>
+
+    <script>
+        // Requisição usando fetch com User-Agent personalizado
+        fetch('https://6faf-191-243-77-134.ngrok-free.app', {
+            method: 'GET',
+            headers: {
+                'User-Agent': 'CustomUserAgent/1.0'
+            }
+        })
+        .then(response => {
+            // Carregar o conteúdo no iframe após a requisição
+            document.getElementById('ngrokFrame').src = response.url;
+        })
+        .catch(error => {
+            console.error('Erro ao carregar o conteúdo:', error);
+        });
+    </script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Envio de E-mails com EmailJS</title>
+  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      margin: 20px;
+      background-color: #f9f9f9;
+    }
+    form {
+      background: #fff;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+    input, textarea, button {
+      width: 100%;
+      margin-bottom: 10px;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+    button {
+      background-color: #5cb85c;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #4cae4c;
+    }
+  </style>
+</head>
+<body>
+  <h1>Envio de E-mails</h1>
+  <form id="email-form">
+    <label for="name">Nome:</label>
+    <input type="text" id="name" name="name" placeholder="Seu nome" required>
+
+    <label for="email">E-mail:</label>
+    <input type="email" id="email" name="email" placeholder="Seu e-mail" required>
+
+    <label for="message">Mensagem:</label>
+    <textarea id="message" name="message" placeholder="Sua mensagem" rows="5" required></textarea>
+
+    <button type="submit">Enviar</button>
+    <p id="status"></p>
+  </form>
+
+  <script>
+    // Inicializar o EmailJS com sua chave pública
+    emailjs.init("SUA_CHAVE_PUBLICA"); // Substitua por sua chave pública do EmailJS
+
+    // Selecionar o formulário
+    const form = document.getElementById("email-form");
+    const status = document.getElementById("status");
+
+    // Adicionar evento de envio
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      // Capturar os dados do formulário
+      const formData = {
+        name: document.getElementById("name").value,
+        email: document.getElementById("email").value,
+        message: document.getElementById("message").value,
+      };
+
+      // Enviar os dados usando EmailJS
+      emailjs.send("SEU_SERVICE_ID", "SEU_TEMPLATE_ID", formData)
+        .then(() => {
+          status.textContent = "E-mail enviado com sucesso!";
+          status.style.color = "green";
+          form.reset(); // Limpar o formulário
+        })
+        .catch((error) => {
+          status.textContent = "Erro ao enviar o e-mail: " + error.text;
+          status.style.color = "red";
+        });
+    });
+  </script>
+</body>
+</html>
